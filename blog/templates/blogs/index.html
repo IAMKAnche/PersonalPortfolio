@@ -1,51 +1,53 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-    <style>
-        div.blogs {
-            margin: 10px 5px;
-            width: 22rem;
-            cursor: pointer;
-        }
-        div.blogs p.blog_date{
-            position: absolute;
-            bottom: 0;
-        }
-    </style>
-
-    <div class="row">
-        {% for blog in blogs %}
-        <div class="card blogs"  id="{{ blog.id }}" data-blog_link = "{% url 'blog:detail' blog.id %}">
-            <img class="card-img-top" src="{{ blog.image.url }}" width="400" height="224" loading="lazy" alt="">
-            <div class="card-body">
-                <h5 class="card-title"><strong>{{ blog.title }}</strong></h5>
-                <p class="card-text">{{ blog.description|striptags|truncatechars:100 }}</p>
-                <p class="card-text blog_date"><small class="text-muted">{{ blog.date|date:'M d Y'|upper }}</small></p>
-            </div>
+<style>
+    div.blogs {
+        margin: 10px 5px;
+        width: 23rem;
+        cursor: pointer;
+    }
+    div.blogs p.blog_date{
+        position: absolute;
+        bottom: 0;
+    }
+    div#blog_header {
+        text-align: center;
+    }
+</style>
+<div id="blog_header"><h2><strong>IAMKAnche Blog List</strong></h2></div>
+<div class="row">
+    {% for blog in blogs %}
+    <div class="card blogs"  id="{{ blog.id }}" data-blog_link = "{% url 'blog:detail' blog.id %}">
+        <img class="card-img-top" src="{{ blog.image.url }}" width="400" height="224" loading="lazy" alt="">
+        <div class="card-body">
+            <h5 class="card-title"><strong>{{ blog.title }}</strong></h5>
+            <p class="card-text">{{ blog.description|striptags|truncatechars:100 }}</p>
+            <p class="card-text blog_date"><small class="text-muted">{{ blog.date|date:'M d Y'|upper }}</small></p>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 
-    <script>
-        window.addEventListener('load', (event) => {
-            // set active navitem blog
-            document.getElementById('navitem-blogs').classList.add('active');
-            // mouseover and click
-            document.querySelectorAll('.blogs').forEach(blog => {
-                // mouse over
-                blog.addEventListener('mouseover', (event) => {
-                    blog.style.boxShadow = '-3px 0px 50px -2px rgba(0, 0, 0, 0.5)';
-                });
-                 // mouse out
-                blog.addEventListener('mouseout', (event) => {
-                    blog.style.removeProperty('box-shadow');
-                });
-                // mouse click
-                blog.addEventListener('click', (event) => {
-                    location.href = blog.getAttribute('data-blog_link');
-                });
+<script>
+    window.addEventListener('load', (event) => {
+        // set active navitem blog
+        document.getElementById('navitem-blogs').classList.add('active');
+        // mouseover and click
+        document.querySelectorAll('.blogs').forEach(blog => {
+            // mouse over
+            blog.addEventListener('mouseover', (event) => {
+                blog.style.boxShadow = '-3px 0px 50px -2px rgba(0, 0, 0, 0.5)';
             });
-
+             // mouse out
+            blog.addEventListener('mouseout', (event) => {
+                blog.style.removeProperty('box-shadow');
+            });
+            // mouse click
+            blog.addEventListener('click', (event) => {
+                location.href = blog.getAttribute('data-blog_link');
+            });
         });
-    </script>
+    });
+</script>
 {% endblock %}
