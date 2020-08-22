@@ -2,27 +2,41 @@
 {% load static %}
 {% block content %}
 <style>
-    div.projects {
-        margin: 10px 5px;
-        width: 23rem;
-        cursor: pointer;
-    }
-    div#project_header {
-        text-align: center;
-    }
+div#project_div {
+    padding: 10px;
+}
+div#project_div h2 {
+    padding: 10px;
+    text-align: center;
+}
+div#project_row {
+    margin: 10px;
+}
+div.card.projects {
+    margin: 10px;
+    height: 375px;
+    min-width: 335px;
+    cursor: pointer;
+}
+div.project_col {
+    padding: 0px !important;
+}
 </style>
-
-<div id="project_header"><h2><strong>IAMKAnche Project List</strong></h2></div>
-<div class="row">
-    {% for project in projects %}
-    <div class="card projects"  id="{{ project.id }}" data-project_link = "{{ project.url }}">
-        <img class="card-img-top" src="{{ project.image.url }}" width="400" height="224" loading="lazy" alt="">
-        <div class="card-body">
-            <h5 class="card-title"><strong>{{ project.title }}</strong></h5>
-            <p class="card-text">{{ project.description }}</p>
+<div id="project_div">
+    <h2><strong>IAMKAnche Project List</strong></h2>
+    <div class="row" id="project_row">
+        {% for project in projects %}
+        <div class="col project_col">
+            <div class="card projects"  id="{{ project.id }}" data-project_link = "{{ project.url }}">
+                <img class="card-img-top" src="{{ project.image.url }}" width="400" height="224" loading="lazy" alt="">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{ project.title }}</strong></h5>
+                    <p class="card-text">{{ project.description|truncatechars:50 }}</p>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
 <script>

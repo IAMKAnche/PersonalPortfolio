@@ -2,33 +2,47 @@
 
 {% block content %}
 <style>
-    div.blogs {
-        margin: 10px 5px;
-        width: 23rem;
+    div#blog_div {
+        padding: 10px;
+    }
+    div#blog_div h2 {
+        padding: 10px;
+        text-align: center;
+    }
+    div#blog_row {
+        margin: 10px;
+    }
+    div.blog_col {
+        padding: 0px !important;
+    }
+    div.card.blogs {
+        margin: 10px;
+        height: 420px;
+        min-width: 335px;
         cursor: pointer;
     }
-    div.blogs p.blog_date{
+    div.blogs p.blog_date {
         position: absolute;
         bottom: 0;
     }
-    div#blog_header {
-        text-align: center;
-    }
 </style>
-<div id="blog_header"><h2><strong>IAMKAnche Blog List</strong></h2></div>
-<div class="row">
-    {% for blog in blogs %}
-    <div class="card blogs"  id="{{ blog.id }}" data-blog_link = "{% url 'blog:detail' blog.id %}">
-        <img class="card-img-top" src="{{ blog.image.url }}" width="400" height="224" loading="lazy" alt="">
-        <div class="card-body">
-            <h5 class="card-title"><strong>{{ blog.title }}</strong></h5>
-            <p class="card-text">{{ blog.description|striptags|truncatechars:100 }}</p>
-            <p class="card-text blog_date"><small class="text-muted">{{ blog.date|date:'M d Y'|upper }}</small></p>
+<div id="blog_div">
+    <h2><strong>IAMKAnche Blog List</strong></h2>
+    <div class="row" id="blog_row">
+        {% for blog in blogs %}
+        <div class="col blog_col">
+            <div class="card blogs"  id="{{ blog.id }}" data-blog_link = "{% url 'blog:detail' blog.id %}">
+                <img class="card-img-top" src="{{ blog.image.url }}" width="400" height="224" loading="lazy" alt="">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>{{ blog.title }}</strong></h5>
+                    <p class="card-text">{{ blog.description|striptags|truncatechars:100 }}</p>
+                    <p class="card-text blog_date"><small class="text-muted">{{ blog.date|date:'M d Y'|upper }}</small></p>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-
 <script>
     window.addEventListener('load', (event) => {
         // set active navitem blog
