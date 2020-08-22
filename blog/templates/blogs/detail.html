@@ -1,16 +1,21 @@
 {% extends 'portfolio/base.html' %}
 
 {% block content %}
-    <div>
-        <img class="card-img-top" src="{{ blog.image.url }}" height="500" loading="lazy" alt="">
-        <h2><strong>{{ blog.title }}</strong></h2>
-        <p>{{ blog.date|date:'F jS Y' }}</p>
-        <p>{{ blog.description|safe }}</p>
-    </div>
-    <script>
-        window.addEventListener('load', (event) => {
-            // set active navitem blog
-            document.getElementById('navitem-blogs').classList.add('active');
-        });
-    </script>
+<style>
+    #blog {
+        padding: 10px;
+    }
+</style>
+<div id="blog">
+    <img class="card-img-top" src="{{ blog.image.url }}" height="500" loading="lazy" alt="">
+    <h2><strong>{{ blog.title }}</strong></h2>
+    <p>{{ blog.date|date:'F jS Y' }}</p>
+    <p>{{ blog.description|safe }}</p>
+</div>
+<script>
+    window.addEventListener('load', (event) => {
+        // set active navitem blog
+        document.getElementById('navitem-blogs').classList.add('active');
+    });
+</script>
 {% endblock %}
